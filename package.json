@@ -1,15 +1,15 @@
 {
-  "name": "--libraryname--",
+  "name": "ts-axios-demo",
   "version": "0.0.0",
   "description": "",
   "keywords": [],
-  "main": "dist/--libraryname--.umd.js",
-  "module": "dist/--libraryname--.es5.js",
-  "typings": "dist/types/--libraryname--.d.ts",
+  "main": "dist/ts-axios-demo.umd.js",
+  "module": "dist/ts-axios-demo.es5.js",
+  "typings": "dist/types/ts-axios-demo.d.ts",
   "files": [
     "dist"
   ],
-  "author": "--username-- <--usermail-->",
+  "author": "1272171893 <1272171893@qq.com>",
   "repository": {
     "type": "git",
     "url": ""
@@ -32,7 +32,6 @@
     "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
     "precommit": "lint-staged",
-    "postinstall": "ts-node tools/init",
     "travis-deploy-once": "travis-deploy-once"
   },
   "lint-staged": {
@@ -117,5 +116,14 @@
     "tslint-config-standard": "^8.0.1",
     "typedoc": "^0.12.0",
     "typescript": "^3.0.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "ts-loader": "^5.3.3",
+    "tslint-loader": "^3.5.4",
+    "webpack": "^4.28.4",
+    "webpack-dev-middleware": "^3.5.0",
+    "webpack-hot-middleware": "^2.24.3"
   }
 }
