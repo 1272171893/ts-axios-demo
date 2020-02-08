@@ -69,7 +69,7 @@ function registerBaseRouter () {
     })
     req.on('end', () => {
       let buf = Buffer.concat(msg)
-      res.json(buf.toJSON())
+      res.json(buf.toJSON()) 
     })
   })
 }
