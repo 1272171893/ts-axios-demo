@@ -3,8 +3,9 @@ import xhr from './xhr'
 import { buildURL } from '../helpers/url'
 import { transfromRequest, transfromResponse } from '../helpers/data'
 import { processHeaders, flatterHeaders } from '../helpers/headers'
-import  transfrom  from './transform'
+import transfrom from './transform'
 export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
+    throwIfCancellationRequested(config)
     processConfig(config)
     return xhr(config).then(res => {
         return transromResponseData(res)
@@ -14,7 +15,7 @@ export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromis
 function processConfig(config: AxiosRequestConfig): void {
     config.url = transfromURL(config)
     // config.headers = transfromHeaders(config)
-    config.data = transfrom(config.data,config.headers,config.transformRequest)
+    config.data = transfrom(config.data, config.headers, config.transformRequest)
     config.headers = flatterHeaders(config.headers, config.method!)
 }
 
@@ -33,6 +34,11 @@ function transfromURL(config: AxiosRequestConfig): string {
 // }
 
 function transromResponseData(res: AxiosResponse): AxiosResponse {
-    res.data = transfrom(res.data,res.headers,res.config.transformResponse)
+    res.data = transfrom(res.data, res.headers, res.config.transformResponse)
     return res
+}
+function throwIfCancellationRequested(config: AxiosRequestConfig): void {
+    if (config.cancelToken) {
+        config.cancelToken.throwIfRequested()
+    }
 }
