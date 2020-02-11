@@ -19,7 +19,10 @@ const defaults: AxiosRequestConfig = {
         function (data: any): any {
             return transfromResponse(data)
         }
-    ]
+    ],
+    xsrfCookieName: "XSRF-TOKEN",
+    xsrfHeaderName: "X-XSRF-TOKEN"
+
 }
 const methodNoData = ["delete", "get", "head", "options"]
 methodNoData.forEach(method => {
