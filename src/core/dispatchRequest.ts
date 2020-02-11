@@ -3,6 +3,7 @@ import xhr from './xhr'
 import { buildURL } from '../helpers/url'
 import { transfromRequest, transfromResponse } from '../helpers/data'
 import { processHeaders, flatterHeaders } from '../helpers/headers'
+import  transfrom  from './transform'
 export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
     processConfig(config)
     return xhr(config).then(res => {
@@ -12,8 +13,8 @@ export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromis
 
 function processConfig(config: AxiosRequestConfig): void {
     config.url = transfromURL(config)
-    config.headers = transfromHeaders(config)
-    config.data = transfromRequestData(config)
+    // config.headers = transfromHeaders(config)
+    config.data = transfrom(config.data,config.headers,config.transformRequest)
     config.headers = flatterHeaders(config.headers, config.method!)
 }
 
@@ -22,16 +23,16 @@ function transfromURL(config: AxiosRequestConfig): string {
     return buildURL(url!, params)
 }
 
-function transfromRequestData(config: AxiosRequestConfig): any {
-    return transfromRequest(config)
-}
+// function transfromRequestData(config: AxiosRequestConfig): any {
+//     return transfromRequest(config)
+// }
 
-function transfromHeaders(config: AxiosRequestConfig): any {
-    const { headers = {}, data } = config
-    return processHeaders(headers, data)
-}
+// function transfromHeaders(config: AxiosRequestConfig): any {
+//     const { headers = {}, data } = config
+//     return processHeaders(headers, data)
+// }
 
 function transromResponseData(res: AxiosResponse): AxiosResponse {
-    res.data = transfromResponse(res.data)
+    res.data = transfrom(res.data,res.headers,res.config.transformResponse)
     return res
 }
